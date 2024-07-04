@@ -35,7 +35,7 @@ public class Message {
 
     public static Message of(String content) {
 
-        return new Message(Message.Role.USER.getValue(), content);
+        return new Message(Role.USER.getValue(), content);
     }
 
     public static Message ofSystem(String content) {

@@ -3,12 +3,9 @@ package com.plexpt.chatgpt.entity.images;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.plexpt.chatgpt.entity.images.enums.ResponseFormat;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @Author matoooo

@@ -5,7 +5,6 @@ import com.plexpt.chatgpt.entity.images.enums.ResponseFormat;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-import java.io.File;
 import java.util.HashMap;
 
 /**
