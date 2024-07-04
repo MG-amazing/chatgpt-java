@@ -42,9 +42,6 @@ public class BasicController {
     @GetMapping(PATH + "/turbo")
     private Result<?> getDataTurbo(@RequestParam String input) {
         chatCompletion.setMessages(Arrays.asList(Message.of(input)));
-        log.info("chat:{}", chatCompletion.getModel());
-        log.info("chat:{}", chatCompletion.countTokens());
-        log.info("chat:{}", chatCompletion.getMessages());
         ChatCompletionResponse chatCompletionResponse = chatGPT.chatCompletion(chatCompletion);
         Message message = null;
         if (CollUtil.isNotEmpty(chatCompletionResponse.getChoices())) {
@@ -57,8 +54,6 @@ public class BasicController {
     @GetMapping(PATH+"/stream")
     public SseEmitter sseEmitter(@RequestParam String input) {
         //国内需要代理 国外不需要
-
-
 
         SseEmitter sseEmitter = new SseEmitter(-1L);
 
