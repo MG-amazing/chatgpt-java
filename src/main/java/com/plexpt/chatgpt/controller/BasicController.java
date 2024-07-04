@@ -56,11 +56,13 @@ public class BasicController {
         //国内需要代理 国外不需要
 
         SseEmitter sseEmitter = new SseEmitter(-1L);
+        chatCompletion.setMessages(Arrays.asList(Message.of(input)));
+
 
         SseStreamListener listener = new SseStreamListener(sseEmitter);
-        Message message = Message.of(input);
 
-        chatGPTStream.streamChatCompletion(Arrays.asList(message), listener);
+
+        chatGPTStream.streamChatCompletion(chatCompletion, listener);
 
 
         return sseEmitter;
