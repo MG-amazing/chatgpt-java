@@ -2,22 +2,20 @@ package com.plexpt.chatgpt.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import com.plexpt.chatgpt.ChatGPT;
+import com.plexpt.chatgpt.ChatGPTStream;
 import com.plexpt.chatgpt.constant.Constant;
 import com.plexpt.chatgpt.constant.Result;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
 import com.plexpt.chatgpt.entity.chat.Message;
-import com.plexpt.chatgpt.entity.images.ImagesRensponse;
-import com.plexpt.chatgpt.entity.images.Variations;
-import com.plexpt.chatgpt.util.FileUtil;
+import com.plexpt.chatgpt.listener.SseStreamListener;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -26,10 +24,12 @@ public class BasicController {
 
     private final ChatGPT chatGPT;
     private final ChatCompletion chatCompletion;
+    private final ChatGPTStream chatGPTStream;
 
-    public BasicController(ChatGPT chatGPT, ChatCompletion chatCompletion) {
+    public BasicController(ChatGPT chatGPT, ChatCompletion chatCompletion, ChatGPTStream chatGPTStream) {
         this.chatGPT = chatGPT;
         this.chatCompletion = chatCompletion;
+        this.chatGPTStream = chatGPTStream;
     }
 
     @GetMapping(PATH)
@@ -53,20 +53,24 @@ public class BasicController {
         return Result.OK(message==null?"":message.getContent());
     }
 
-    @PostMapping(PATH + "/image")
-    private Result<?> getDataImage(@RequestParam MultipartFile file) throws IOException {
-        Variations variations = Variations.ofURL(1, "256x256");
-        File file1 = FileUtil.convertToFile(file);
 
-        ImagesRensponse imagesRensponse = chatGPT.imageVariation(file1, variations);
+    @GetMapping(PATH+"/stream")
+    public SseEmitter sseEmitter(@RequestParam String input) {
+        //国内需要代理 国外不需要
 
-        List<Object> data = imagesRensponse.getData();
-        for (Object o : data) {
-            System.out.println(o.toString());
-        }
 
-        return Result.OK(imagesRensponse);
+
+        SseEmitter sseEmitter = new SseEmitter(-1L);
+
+        SseStreamListener listener = new SseStreamListener(sseEmitter);
+        Message message = Message.of(input);
+
+        chatGPTStream.streamChatCompletion(Arrays.asList(message), listener);
+
+
+        return sseEmitter;
     }
+
 
 
 

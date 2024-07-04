@@ -1,11 +1,9 @@
 package com.plexpt.chatgpt.bean;
 
 import com.plexpt.chatgpt.ChatGPT;
+import com.plexpt.chatgpt.ChatGPTStream;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.Message;
-import com.plexpt.chatgpt.entity.images.Generations;
-import com.plexpt.chatgpt.entity.images.ImagesRensponse;
-import com.unfbx.chatgpt.entity.images.Image;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +29,16 @@ public class BeanComponent {
                 .temperature(0.6)
                 .build();
         return chatCompletion;
+    }
+    //流
+    @Bean
+    public ChatGPTStream chatGPTStream() {
+        ChatGPTStream chatGPTStream = ChatGPTStream.builder()
+                .apiKey("sk-pBruIqC3hPClr0qP1c220a2d4294430984A1Bc5429Cc5cE3")
+                .apiHost("https://api.xiaoai.plus/") //反向代理地址
+                .build()
+                .init();
+        return chatGPTStream;
     }
 
 
