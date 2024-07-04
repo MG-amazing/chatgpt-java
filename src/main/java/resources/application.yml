@@ -1,8 +1,10 @@
 server:
   port: 8080
 
-
-
-
-
+chatgpt:
+  host: 'https://api.xiaoai.plus'
+  apiKey: 'sk-pBruIqC3hPClr0qP1c220a2d4294430984A1Bc5429Cc5cE3'
+  proxy:
+    host: '127.0.0.1'
+    port: '10808'
 

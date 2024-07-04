@@ -4,6 +4,7 @@ import com.plexpt.chatgpt.ChatGPT;
 import com.plexpt.chatgpt.ChatGPTStream;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.Message;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +12,15 @@ import java.util.Arrays;
 
 @Component
 public class BeanComponent {
+    @Value("${chatgpt.apiKey}")
+    private  String apiKey;
+    @Value("${chatgpt.host}")
+    private  String apiHost;
     @Bean
     public ChatGPT chatGPTChat() {
         ChatGPT chatGPT = ChatGPT.builder()
-                .apiKey("sk-pBruIqC3hPClr0qP1c220a2d4294430984A1Bc5429Cc5cE3")
-                .apiHost("https://api.xiaoai.plus") //反向代理地址
+                .apiKey(apiKey)
+                .apiHost(apiHost) //反向代理地址
                 .build()
                 .init();
         return chatGPT;
@@ -34,8 +39,8 @@ public class BeanComponent {
     @Bean
     public ChatGPTStream chatGPTStream() {
         ChatGPTStream chatGPTStream = ChatGPTStream.builder()
-                .apiKey("sk-pBruIqC3hPClr0qP1c220a2d4294430984A1Bc5429Cc5cE3")
-                .apiHost("https://api.xiaoai.plus/") //反向代理地址
+                .apiKey(apiKey)
+                .apiHost(apiHost) //反向代理地址
                 .build()
                 .init();
         return chatGPTStream;

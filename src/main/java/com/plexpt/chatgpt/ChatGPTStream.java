@@ -96,7 +96,7 @@ public class ChatGPTStream {
 
 
             Request request = new Request.Builder()
-                    .url(apiHost + "v1/chat/completions")
+                    .url(apiHost + "/v1/chat/completions")
                     .post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), requestBody))
                     .header("Authorization", "Bearer " + key)
                     .build();
