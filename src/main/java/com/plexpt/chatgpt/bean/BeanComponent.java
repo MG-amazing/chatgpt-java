@@ -23,7 +23,7 @@ public class BeanComponent {
     @Bean
     public ChatCompletion chatGPTChatThree() {
         ChatCompletion chatCompletion = ChatCompletion.builder()
-                .model(ChatCompletion.Model.GPT_3_5_TURBO)
+                .model(ChatCompletion.Model.GPT4o)
                 .messages(Arrays.asList(Message.of("用中文")))
                 .maxTokens(3000)
                 .temperature(0.6)
