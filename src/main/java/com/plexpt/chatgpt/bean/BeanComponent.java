@@ -1,14 +1,18 @@
 package com.plexpt.chatgpt.bean;
 
+import com.google.gson.JsonObject;
 import com.plexpt.chatgpt.ChatGPT;
 import com.plexpt.chatgpt.ChatGPTStream;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.Message;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class BeanComponent {
@@ -45,6 +49,23 @@ public class BeanComponent {
                 .init();
         return chatGPTStream;
     }
+    @Bean
+    public OkHttpClient okHttpClient() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS) // 连接超时：30秒
+                .readTimeout(30, TimeUnit.SECONDS)    // 读取超时：30秒
+                .writeTimeout(30, TimeUnit.SECONDS)   // 写入超时：30秒
+                .build();
+        return client;
+    }
+    @Bean
+    public JsonObject jsonObject() {
+        JsonObject requestBodyJson = new JsonObject();
+        requestBodyJson.addProperty("model", "dall-e-3");
+        requestBodyJson.addProperty("size", "1024x1024");
+        return  requestBodyJson;
+    }
+
 
 
 }

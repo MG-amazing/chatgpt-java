@@ -8,7 +8,9 @@ import com.plexpt.chatgpt.constant.Result;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
 import com.plexpt.chatgpt.entity.chat.Message;
+import com.plexpt.chatgpt.entity.images.ImagesRensponse;
 import com.plexpt.chatgpt.listener.SseStreamListener;
+import com.plexpt.chatgpt.util.ImagesUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +64,11 @@ public class BasicController {
         chatGPTStream.streamChatCompletion(chatCompletion, listener);
 
         return sseEmitter;
+    }
+    @GetMapping(PATH+"/images")
+    public Result<?> images(@RequestParam String prompt) {
+        String image = ImagesUtil.createImage(prompt);
+        return Result.OK(image);
     }
 
 
