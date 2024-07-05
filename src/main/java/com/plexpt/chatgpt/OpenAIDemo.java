@@ -29,7 +29,7 @@ public class OpenAIDemo {
         requestBodyJson.addProperty("model", "dall-e-3");
         requestBodyJson.addProperty("prompt", prompt);
         requestBodyJson.addProperty("size", "1024x1024");
-        RequestBody requestBody = RequestBody.create(requestBodyJson.toString(), MediaType.parse("application/json"));
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), requestBodyJson.toString());
 
         Request request = new Request.Builder()
                 .url(OPENAI_API_ENDPOINT)

@@ -8,7 +8,6 @@ import com.plexpt.chatgpt.constant.Result;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
 import com.plexpt.chatgpt.entity.chat.Message;
-import com.plexpt.chatgpt.entity.images.ImagesRensponse;
 import com.plexpt.chatgpt.listener.SseStreamListener;
 import com.plexpt.chatgpt.util.ImagesUtil;
 import lombok.extern.slf4j.Slf4j;
