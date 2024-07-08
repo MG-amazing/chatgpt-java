@@ -3,7 +3,6 @@ package com.plexpt.chatgpt.controller;
 import cn.hutool.core.collection.CollUtil;
 import com.plexpt.chatgpt.ChatGPT;
 import com.plexpt.chatgpt.ChatGPTStream;
-import com.plexpt.chatgpt.constant.Constant;
 import com.plexpt.chatgpt.constant.Result;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
